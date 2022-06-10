@@ -122,73 +122,61 @@ class App(customtkinter.CTk):
         current_ac = ac_combobox.current_value
 
         # ---------------- HP Pool Option --------------#
-        #HP pool values
-        #Low
-        hp_low_options = ["Random",
+        hp_options = {"Low" : (
                         "5","10","15","20",
                         "25","30","35","40",
                         "45","50","55","60",
                         "65","70","75","80",
-                        "85","90","95","100",
-                        ]
-        #Medium                
-        hp_medium_options = ["Random",
+                        "85","90","95","100"),
+
+                    "Medium" : (
                         "105","110","115","120",
                         "125","130","135","140",
                         "145","150","155","160",
                         "165","170","175","180",
-                        "185","190","195","200",
-                        ]
-        #Large
-        hp_high_options = ["Random",
+                        "185","190","195","200",),
+
+                    "High" : (
                         "205","210","215","220",
                         "225","230","235","240",
                         "245","250","255","260",
                         "265","270","275","280",
-                        "285","290","295","300",
-                        ]
-        #Extreme
-        hp_extreme_options = ["Random",
+                        "285","290","295","300",),
+
+                    "Extreme" : (
                         "325","350","375","400",
                         "425","450","475","500",
                         "525","550","575","600",
                         "625","650","675","700",
-                        "725","750","775","800",
-                        ]
-        
+                        "725","750","775","800",)}
+
+        def on_pool_selected(hp_value):
+            hp_values = ('Random',)
+            if hp_value == 'Random':
+                for v in hp_options.values():
+                    hp_values += v
+            else:
+                hp_values += hp_options[hp_value]
+            hp_value_combobox.configure(values=hp_values)
+            hp_value_combobox.set('Random')
+
+
+        #Label
         hp_pool_label = customtkinter.CTkLabel(master=self.frame_left, text="HP Option")
         hp_pool_label.grid(row=5,column=0)
-        current_hp_pool = StringVar() #initialize variable
+        hp_var1 = customtkinter.StringVar()
         hp_pool_combobox = customtkinter.CTkComboBox(master=self.frame_left, 
-                                                    variable=current_hp_pool, #set variable in combobox
-                                                    values=("Random",
-                                                            "Low HP Pool", 
-                                                            "Medium HP Pool", 
-                                                            "High HP Pool", 
-                                                            "Extreme HP Pool"))
+                                        variable=hp_var1, 
+                                        values=("Random",)+tuple(hp_options.keys()), 
+                                        command=on_pool_selected)
         hp_pool_combobox.grid(row=5, column=1)
-        hp_pool_combobox.set("Random") 
-        # hp_pool_combobox.setvar("Test", current_hp_pool)
-        # current_hp_pool = hp_pool_combobox.current_value
-
-
-        # if current_hp_pool == "Random":
-        #     hp_pool_selected = (hp_low_options,
-        #                         hp_medium_options,
-        #                         hp_high_options,
-        #                         hp_extreme_options)
-        # elif current_hp_pool == "Low HP Pool":
-        #     hp_pool_selected = hp_low_options
-        # elif current_hp_pool == "Medium HP Pool":
-        #     hp_pool_selected = hp_medium_options
-        # elif current_hp_pool == "High HP Pool":
-        #     hp_pool_selected = hp_high_options
-        # elif current_hp_pool == "Extreme HP Pool":
-        #     hp_pool_selected = hp_extreme_options
         
-        hp_value_combobox = customtkinter.CTkComboBox(master=self.frame_left, values="0")
+
+        hp_var2 = customtkinter.StringVar()
+        hp_value_combobox = customtkinter.CTkComboBox(master=self.frame_left, variable=hp_var2)
         hp_value_combobox.grid(row=5, column=2)
         hp_value_combobox.set("Random")
+        hp_pool_combobox.set("Random")
         
         # ----------Movement Options ------------#
         # Base Movement Speed Combobox
