@@ -4,6 +4,7 @@ import tkinter
 import tkinter.messagebox
 import customtkinter
 from tkinter import *
+import random
 
 #TODO Create IF statement for Saves based on stats
 #TODO Create healthpool options
@@ -16,12 +17,14 @@ class App(customtkinter.CTk):
     WIDTH = 1450
     HEIGHT = 900
     monster_stat_list = [
-                            "Name",
+                            "Monster Name",
                             "Size",
-                            "Type",
+                            "Monster Type",
+                            "AC Type",
                             "AC",
                             "HP",
                             "Speed",
+                            "Extra Move Type",
                             "STR",
                             "DEX",
                             "CON",
@@ -30,10 +33,15 @@ class App(customtkinter.CTk):
                             "CHA",
                             "Saves",
                             "Skills",
+                            "Vulnerabilities",
+                            "Immunities",
+                            "Resistances",
                             "Senses",
                             "Languages",
-                            "Abilites",
-                            "actions",
+                            "Special Traits",
+                            "Actions",
+                            "Legendary Actions",
+                            "Lair Actions",
                             "Spells"
                         ]
 
@@ -56,8 +64,7 @@ class App(customtkinter.CTk):
         self.frame_right = customtkinter.CTkFrame(master=self)
         self.frame_right.grid(row=0, column=1, sticky="nswe", padx=10, pady=10)
         #Far Left Frame
-        self.frame_left.grid_rowconfigure(0, minsize=10)   # empty row with minsize as spacing
-        
+        self.frame_left.grid_rowconfigure(0, minsize=10)   # empty row with minsize as spacing        
         
         #-----------Generate Button function --------------#
         #Create a generate function for button 
@@ -73,30 +80,69 @@ class App(customtkinter.CTk):
         
         #----------- Create Monster Options ------------#
 
+                        #-------Size--------#
         #Size Combobox
         size_label = customtkinter.CTkLabel(master=self.frame_left, text="Size Option")
         size_label.grid(row=1,column=0)
-        size_options = ["Random", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
-        size_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=size_options)
+        size_options_combobox = ["Random", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
+        size_options_label = ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
+        size_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=size_options_combobox)
         size_combobox.grid(row=1, column=1)
         size_combobox.set("Random")
         current_size = size_combobox.current_value
+        #Add size function
+        def add_size():
+            size_choice = StringVar()
+            size_choice = size_combobox.get()
+            random_size = random.choice(size_options_label)
+            if size_choice == "Random":
+                display_size['text'] = random_size
+            else:
+                display_size['text'] = size_choice
+        # #Display Size
+        display_size = customtkinter.CTkLabel(master=self.frame_right, text='')
+        display_size.grid(row=1,column=1)
+        #Create button to add a size
+        add_size_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Size", command=add_size)
+        add_size_btn.grid(row=1, column=2)
 
+                             #-------Monster Type--------#
         #Monster type Combobox
         type_label = customtkinter.CTkLabel(master=self.frame_left, text="Monster Type Option")
         type_label.grid(row=2,column=0)
-        type_options = ["Random","Aberration", "Beast", 
+        type_options_combobox = ["Random","Aberration", "Beast", 
                         "Celestial", "Construct", "Dragon", 
                         "Elemental", "Fey", "Fiend", 
                         "Giant", "Humanoid", "Monstrosity", 
                         "Ooze", "Plant", "Undead"
                         ]
-        type_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=type_options)
+        type_options_label = ["Aberration", "Beast", 
+                        "Celestial", "Construct", "Dragon", 
+                        "Elemental", "Fey", "Fiend", 
+                        "Giant", "Humanoid", "Monstrosity", 
+                        "Ooze", "Plant", "Undead"
+                        ]
+        type_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=type_options_combobox)
         type_combobox.grid(row=2, column=1)
         type_combobox.set("Random")
         current_type = type_combobox.current_value
+        #Add Monster Type function
+        def add_type():
+            type_choice = StringVar()
+            type_choice = type_combobox.get()
+            random_type = random.choice(type_options_label)
+            if type_choice == "Random":
+                display_type['text'] = random_type
+            else:
+                display_type['text'] = type_choice
+        #Display Type
+        display_type = customtkinter.CTkLabel(master=self.frame_right, text='')
+        display_type.grid(row=2,column=1)
+        #Create button to add a size
+        add_type_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Type", command=add_type)
+        add_type_btn.grid(row=2, column=2)
 
-        # ---------------- AC Options --------------#
+                        # ---------------- AC Options --------------#
         #AC type Combobox
         ac_type_label = customtkinter.CTkLabel(master=self.frame_left, text="AC Type Option")
         ac_type_label.grid(row=3,column=0)
@@ -409,17 +455,17 @@ class App(customtkinter.CTk):
         lang_add_button.grid(row=20,column=2)
 
         ###TODO
-        #Abilites value combobox
-        abilities_label = customtkinter.CTkLabel(master=self.frame_left, text="Abilities Option")
-        abilities_label.grid(row=21,column=0)
-        abilities_options = ["Random"]
-        abilities_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=abilities_options)
-        abilities_combobox.grid(row=21, column=1)
-        abilities_combobox.set("Random")
-        current_abilities = abilities_combobox.current_value
+        #Special traits value combobox
+        special_traits_label = customtkinter.CTkLabel(master=self.frame_left, text="Special Traits Option")
+        special_traits_label.grid(row=21,column=0)
+        special_traits_options = ["Random"]
+        special_traits_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=special_traits_options)
+        special_traits_combobox.grid(row=21, column=1)
+        special_traits_combobox.set("Random")
+        current_special_traits = special_traits_combobox.current_value
         #Language Add button
-        abilities_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Abilities")
-        abilities_add_button.grid(row=21,column=2)
+        special_traits_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Special Trait")
+        special_traits_add_button.grid(row=21,column=2)
 
         ###TODO
         #Actions value combobox
@@ -431,21 +477,59 @@ class App(customtkinter.CTk):
         actions_combobox.set("Random")
         current_actions = actions_combobox.current_value
         #Actions Add button
-        actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Actions")
+        actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Action")
         actions_add_button.grid(row=22,column=2)
+
+        ###TODO
+        #Legendary Actions value combobox
+        legendary_actions_label = customtkinter.CTkLabel(master=self.frame_left, text="Legendary Actions Option")
+        legendary_actions_label.grid(row=23,column=0)
+        legendary_actions_options = ["Random"]
+        legendary_actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=legendary_actions_options)
+        legendary_actions_combobox.grid(row=23, column=1)
+        legendary_actions_combobox.set("Random")
+        current_legendary_actions = legendary_actions_combobox.current_value
+        #Legendary Actions Add button
+        legendary_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Legendary Action")
+        legendary_actions_add_button.grid(row=23,column=2)
+
+        ###TODO
+        #Lair Actions value combobox
+        lair_actions_label = customtkinter.CTkLabel(master=self.frame_left, text="Lair Actions Option")
+        lair_actions_label.grid(row=24,column=0)
+        lair_actions_options = ["Random"]
+        lair_actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=lair_actions_options)
+        lair_actions_combobox.grid(row=24, column=1)
+        lair_actions_combobox.set("Random")
+        current_lair_actions = lair_actions_combobox.current_value
+        #Lair Actions Add button
+        lair_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Lair Action")
+        lair_actions_add_button.grid(row=24,column=2)
 
         ###TODO
         #Spells value combobox
         spells_label = customtkinter.CTkLabel(master=self.frame_left, text="Spells Option")
-        spells_label.grid(row=23,column=0)
+        spells_label.grid(row=25,column=0)
         spells_options = ["Random"]
         spells_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=spells_options)
-        spells_combobox.grid(row=23, column=1)
+        spells_combobox.grid(row=25, column=1)
         spells_combobox.set("Random")
         current_spells = spells_combobox.current_value
         #Spell Add button
         spell_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Spell")
-        spell_add_button.grid(row=23,column=2)
+        spell_add_button.grid(row=25,column=2)
+
+        #------ Display Stats ----#
+        
+        for index, row in enumerate(self.monster_stat_list): 
+            monster_stats_label = customtkinter.CTkLabel(master=self.frame_right, 
+                                                        text=row + ":")
+                                                        
+            #may want to add index + 1 to start it on row 2 
+            monster_stats_label.grid(row=index, column=0,padx=1,pady=1, sticky="w")
+
+                           
+
 
 if __name__ == "__main__":
     app = App()
