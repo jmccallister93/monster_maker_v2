@@ -41,3 +41,4 @@ add_size_btn.grid(row=0, column=1)
 
 
 root.mainloop()
+
