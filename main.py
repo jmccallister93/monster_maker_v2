@@ -1,22 +1,28 @@
 from doctest import master
+from msilib.schema import ComboBox
 import string
 import tkinter
 import tkinter.messagebox
 import customtkinter
 from tkinter import *
 import random
+from spells import *
 
-#TODO Create IF statement for Saves based on stats
+
+#TODO Create calculations statement for Saves based on stats
 #TODO Create healthpool options
-#TODO Fix error messages to show any value in list already exists
+#TODO Fix error messages to show any value in label already exists
 
+#Set starting apperances
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
+#Create main window class
 class App(customtkinter.CTk):
 
     WIDTH = 1450
     HEIGHT = 900
+    #Labels for displaying stats
     monster_stat_list = [
                             "Monster Name",
                             "Size",
@@ -52,7 +58,7 @@ class App(customtkinter.CTk):
         self.title("Monster Maker")
         self.geometry(f"{App.WIDTH}x{App.HEIGHT}")
         
-        #------------Setup Frame---------------#
+        #------------Setup Frames---------------#
         # configure grid layout (2x1)
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -68,6 +74,7 @@ class App(customtkinter.CTk):
         self.frame_left.grid_rowconfigure(0, minsize=10)   # empty row with minsize as spacing        
         
         #-----------Generate Button function --------------#
+        #TODO
         #Create a generate function for button 
         def generate_monster():
             pass
@@ -440,7 +447,7 @@ class App(customtkinter.CTk):
                 display_str['text'] = str_choice
         #Display STR Value
         display_str = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_str.grid(row=9,column=1)
+        display_str.grid(row=8,column=1)
         #Create button to add STR Value
         add_str_btn = customtkinter.CTkButton(master=self.frame_left, text="Add STR Value", command=add_str)
         add_str_btn.grid(row=9, column=2)
@@ -463,7 +470,7 @@ class App(customtkinter.CTk):
                 display_dex['text'] = dex_choice
         #Display DEX Value
         display_dex = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_dex.grid(row=10,column=1)
+        display_dex.grid(row=9,column=1)
         #Create button to add DEX Value
         add_dex_btn = customtkinter.CTkButton(master=self.frame_left, text="Add DEX Value", command=add_dex)
         add_dex_btn.grid(row=10, column=2)
@@ -486,7 +493,7 @@ class App(customtkinter.CTk):
                 display_con['text'] = con_choice
         #Display con Value
         display_con = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_con.grid(row=11,column=1)
+        display_con.grid(row=10,column=1)
         #Create button to add con Value
         add_con_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Con Value", command=add_con)
         add_con_btn.grid(row=11, column=2)
@@ -509,7 +516,7 @@ class App(customtkinter.CTk):
                 display_int['text'] = int_choice
         #Display int Value
         display_int = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_int.grid(row=12,column=1)
+        display_int.grid(row=11,column=1)
         #Create button to add int Value
         add_int_btn = customtkinter.CTkButton(master=self.frame_left, text="Add INT Value", command=add_int)
         add_int_btn.grid(row=12, column=2)
@@ -532,7 +539,7 @@ class App(customtkinter.CTk):
                 display_wis['text'] = wis_choice
         #Display wis Value
         display_wis = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_wis.grid(row=13,column=1)
+        display_wis.grid(row=12,column=1)
         #Create button to add wis Value
         add_wis_btn = customtkinter.CTkButton(master=self.frame_left, text="Add WIS Value", command=add_wis)
         add_wis_btn.grid(row=13, column=2)
@@ -555,13 +562,13 @@ class App(customtkinter.CTk):
                 display_cha['text'] = cha_choice
         #Display cha Value
         display_cha = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_cha.grid(row=14,column=1)
+        display_cha.grid(row=13,column=1)
         #Create button to add cha Value
         add_cha_btn = customtkinter.CTkButton(master=self.frame_left, text="Add CHA Value", command=add_cha)
         add_cha_btn.grid(row=14, column=2)
 
         #--------- Saving Throws ---------#
-        #TODO Create IF statement for Saves based on stats
+        #TODO Create Calculation for Saves based on stats
         
         # ----------- Skills ------------#
         #Skills combobox
@@ -952,16 +959,123 @@ class App(customtkinter.CTk):
 
         ###TODO
         #Spells value combobox
-        spells_label = customtkinter.CTkLabel(master=self.frame_left, text="Spells Option")
-        spells_label.grid(row=25,column=0)
-        spells_options = ["Random"]
-        spells_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=spells_options)
-        spells_combobox.grid(row=25, column=1)
-        spells_combobox.set("Random")
-        current_spells = spells_combobox.current_value
-        #Spell Add button
-        spell_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Spell")
-        spell_add_button.grid(row=25,column=2)
+        # spells_label = customtkinter.CTkLabel(master=self.frame_left, text="Spells Option")
+        # spells_label.grid(row=25,column=0)
+
+        # #Create lists of spells from spells.py
+        # df_spells_0 = pd.read_excel("data/level_0_spells.xlsx")
+        # list_spells_0 = df_spells_0["Name"].values.tolist()
+
+        # df_spells_1 = pd.read_excel("data/level_1_spells.xlsx")
+        # list_spells_1 = df_spells_1["Name"].values.tolist()
+
+        # df_spells_2 = pd.read_excel("data/level_2_spells.xlsx")
+        # list_spells_2 = df_spells_2["Name"].values.tolist()
+
+        # df_spells_3 = pd.read_excel("data/level_3_spells.xlsx")
+        # list_spells_3 = df_spells_3["Name"].values.tolist()
+
+        # df_spells_4 = pd.read_excel("data/level_4_spells.xlsx")
+        # list_spells_4 = df_spells_4["Name"].values.tolist()
+
+        # df_spells_5 = pd.read_excel("data/level_5_spells.xlsx")
+        # list_spells_5 = df_spells_5["Name"].values.tolist()
+
+        # df_spells_6 = pd.read_excel("data/level_6_spells.xlsx")
+        # list_spells_6 = df_spells_6["Name"].values.tolist()
+
+        # df_spells_7 = pd.read_excel("data/level_7_spells.xlsx")
+        # list_spells_7 = df_spells_7["Name"].values.tolist()
+
+        # df_spells_8 = pd.read_excel("data/level_8_spells.xlsx")
+        # list_spells_8 = df_spells_8["Name"].values.tolist()
+
+        # df_spells_9 = pd.read_excel("data/level_9_spells.xlsx")
+        # list_spells_9 = df_spells_9["Name"].values.tolist()
+
+        # #List out All Spells for all Levels
+        # spells_level_options_combobox = {"Random": "Random",
+        #                             "Level 0": list_spells_0,
+        #                             "Level 1": list_spells_1,
+        #                             "Level 2": list_spells_2,
+        #                             "Level 3": list_spells_3,
+        #                             "Level 4": list_spells_4,
+        #                             "Level 5": list_spells_5,
+        #                             "Level 6": list_spells_6,
+        #                             "Level 7": list_spells_7,
+        #                             "Level 8": list_spells_8,
+        #                             "Level 9": list_spells_9,}
+        # spells_level_options_label = ["Level 0","Level 1",
+        #                                 "Level 2","Level 3","Level 4",
+        #                                 "Level 5","Level 6","Level 7",
+        #                                 "Level 8","Level 9"]
+            
+        
+        # def on_spell_selected(spell_value):
+        #     spell_values = ('Random')
+        #     if spell_value == "Random":
+        #         for v in spells_level_options_combobox.values():
+        #             spell_values += v
+        #     else:
+        #         spell_values += spells_level_options_combobox[spell_value]
+        #     spells_level_combobox.configure(values=spell_values)
+        #     spells_level_combobox.set('Random')
+
+        # spells_var1 = customtkinter.StringVar()
+        # spells_level_combobox = customtkinter.CTkComboBox(master=self.frame_left, 
+        #                                                 variable=spells_var1, 
+        #                                                 values=("Random",)+tuple(spells_level_options_combobox.keys()), 
+        #                                                 command=on_spell_selected)
+        # spells_level_combobox.grid(row=25,column=1)
+        # spells_level_combobox.set("Random")
+
+        # spells_var2 = customtkinter.StringVar()
+        # spells_combobox = customtkinter.CTkComboBox(master=self.frame_left, 
+        #                                             variable=spells_var2, 
+        #                                             values=("Random",)+tuple(spells_level_options_combobox.keys()), 
+        #                                             command=on_spell_selected) 
+        # spells_combobox.grid(row=25, column=2)
+        # spells_combobox.set("Random")
+        
+        # #Create list of spells
+        # spells_list = []    
+
+        # #Add spells function
+        # def add_spells():
+        #     #Level
+        #     spells_level_choice = StringVar()
+        #     spells_level_choice = spells_level_combobox.get()
+        #     random_spells_level = random.choice(spells_level_options_label)
+        #     #Value
+        #     spells_choice = StringVar()
+        #     spells_choice = spells_combobox.get()
+        #     random_spells_value = random.choice(spells_options_label)
+            
+        #     if any(spells_choice in s for s in spells_list):
+        #         tkinter.messagebox.showinfo('Error', f'{spells_choice} Sense already added.')
+        #     else:                                    
+        #         if spells_choice == "Random" and spells_level_choice == "Random":
+        #             spells_list.append(random_spells_level + ' ' + random_spells_value)
+        #             display_spells['text'] = ' | '.join(spells_list)
+                                                
+        #         elif spells_choice == "Random" and spells_level_choice != "Random":
+        #             spells_list.append(random_spells_level + ' ' + spells_level_choice)
+        #             display_spells['text'] = ' | '.join(spells_list)
+
+        #         elif spells_choice !="Random" and spells_level_choice == "Random":
+        #             spells_list.append(spells_choice + ' ' + random_spells_value)
+        #             display_spells['text'] = ' | '.join(spells_list)
+
+        #         elif spells_choice !="Random" and spells_level_choice != "Random":
+        #             spells_list.append(spells_choice + ' ' + spells_level_choice)
+        #             display_spells['text'] = ' | '.join(spells_list)
+            
+        # #Display spells
+        # display_spells = customtkinter.CTkLabel(master=self.frame_right, text='')
+        # display_spells.grid(row=25,column=1)
+        # #Create button to add spells
+        # add_spells_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Spells",command=add_spells)
+        # add_spells_btn.grid(row=25, column=3)
 
         #TODO Export to PDF 
         #------ Display Stats ----#
@@ -976,8 +1090,7 @@ class App(customtkinter.CTk):
         #TODO
         #------Remove Button------#
         def remove_stat():
-            # Toplevel object which will
-            # be treated as a new window
+            #Create Window
             remove_stat_window = customtkinter.CTkToplevel(master)
         
             # sets the title of the
@@ -988,8 +1101,9 @@ class App(customtkinter.CTk):
             remove_stat_window.geometry("400x400")
         
             # A Label widget to show in toplevel
-            Label(remove_stat_window,
-                text ="This is a new window").pack()
+            customtkinter.CTkLabel(remove_stat_window, text="Choose Stat to Clear")
+            customtkinter.CTkComboBox(remove_stat_window,
+                text ="Choose Stat to Clear").pack()
 
         remove_btn = customtkinter.CTkButton(master=self.frame_left, text="Remove Stat?", command=remove_stat)
         remove_btn.grid(row=28,column=0, columnspan=4)
