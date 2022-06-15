@@ -3,6 +3,7 @@ from msilib.schema import ComboBox
 import string
 import tkinter
 import tkinter.messagebox
+from turtle import width
 import customtkinter
 from tkinter import *
 import random
@@ -120,8 +121,8 @@ class App(customtkinter.CTk):
         display_size.grid(row=1,column=1)
         
         #Create button to add a size
-        add_size_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Size", command=add_size)
-        add_size_btn.grid(row=1, column=2)
+        add_size_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_size, width=30)
+        add_size_btn.grid(row=1, column=2, sticky = "W")
 
                              #-------Monster Type--------#
         #Monster type Combobox
@@ -156,8 +157,8 @@ class App(customtkinter.CTk):
         display_monster_type = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_monster_type.grid(row=2,column=1)
         #Create button to add a monster type
-        add_monster_type_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Type", command=add_monster_type)
-        add_monster_type_btn.grid(row=2, column=2)
+        add_monster_type_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_monster_type, width=30)
+        add_monster_type_btn.grid(row=2, column=2, sticky="W")
 
                         # ---------------- AC Options --------------#
         #AC type Combobox
@@ -182,8 +183,8 @@ class App(customtkinter.CTk):
         display_ac_type = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_ac_type.grid(row=3,column=1)
         #Create button to add a AC Type
-        add_ac_type_btn = customtkinter.CTkButton(master=self.frame_left, text="Add AC Type", command=add_ac_type)
-        add_ac_type_btn.grid(row=3, column=2)
+        add_ac_type_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_ac_type, width=30)
+        add_ac_type_btn.grid(row=3, column=2, sticky = "W")
         
                                 #---------AC Value--------#
         #AC Value Combobox
@@ -221,8 +222,8 @@ class App(customtkinter.CTk):
         display_ac_value = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_ac_value.grid(row=4,column=1)
         #Create button to add AC Value
-        add_ac_value_btn = customtkinter.CTkButton(master=self.frame_left, text="Add AC Value", command=add_ac_value)
-        add_ac_value_btn.grid(row=4, column=2)
+        add_ac_value_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_ac_value, width=30)
+        add_ac_value_btn.grid(row=4, column=2, sticky="w")
 
 
 
@@ -267,7 +268,7 @@ class App(customtkinter.CTk):
             
         
         #Label
-        hp_pool_label = customtkinter.CTkLabel(master=self.frame_left, text="HP Option")
+        hp_pool_label = customtkinter.CTkLabel(master=self.frame_left, text="HP Pool Option")
         hp_pool_label.grid(row=5,column=0)
         hp_var1 = customtkinter.StringVar()
         hp_pool_combobox = customtkinter.CTkComboBox(master=self.frame_left, 
@@ -276,10 +277,12 @@ class App(customtkinter.CTk):
                                         command=on_pool_selected)
         hp_pool_combobox.grid(row=5, column=1)
         
+        hp_value_label = customtkinter.CTkLabel(master=self.frame_left, text="Hp Value Option")
+        hp_value_label.grid(row=6,column=0)
 
         hp_var2 = customtkinter.StringVar()
         hp_value_combobox = customtkinter.CTkComboBox(master=self.frame_left, variable=hp_var2)
-        hp_value_combobox.grid(row=5, column=2)
+        hp_value_combobox.grid(row=6, column=1)
         hp_value_combobox.set("Random")
         hp_pool_combobox.set("Random")
         
@@ -298,13 +301,13 @@ class App(customtkinter.CTk):
         display_hp_value = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_hp_value.grid(row=5,column=1)
         #Create button to add HP Value
-        add_hp_value_btn = customtkinter.CTkButton(master=self.frame_left, text="Add HP Value") #TODO , command=add_hp_value()
-        add_hp_value_btn.grid(row=5, column=3)
+        add_hp_value_btn = customtkinter.CTkButton(master=self.frame_left, text="+", width=30) #TODO , command=add_hp_value()
+        add_hp_value_btn.grid(row=6, column=2, sticky="w")
 
                             # ----------Movement Options ------------#
         # Base Movement Speed Combobox
         move_speed_label = customtkinter.CTkLabel(master=self.frame_left, text="Base Move Speed Option")
-        move_speed_label.grid(row=6,column=0)
+        move_speed_label.grid(row=7,column=0)
         move_speed_options_combobox = ["Random", 
                                         "10 ft","20 ft","30 ft",
                                         "40 ft","50 ft","60 ft",
@@ -318,7 +321,7 @@ class App(customtkinter.CTk):
                                         "100 ft","110 ft","120 ft"
                                         ]
         move_speed_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=move_speed_options_combobox)
-        move_speed_combobox.grid(row=6, column=1)
+        move_speed_combobox.grid(row=7, column=1)
         move_speed_combobox.set("Random")
         current_move_speed = move_speed_combobox.current_value
         #Add Move Speed function
@@ -332,19 +335,20 @@ class App(customtkinter.CTk):
                 display_move_speed['text'] = move_speed_choice
         #Display Move Speed
         display_move_speed = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_move_speed.grid(row=6,column=1)
+        display_move_speed.grid(row=7,column=1)
+        
         #Create button to add Move Speed
-        add_move_speed_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Move Speed", command=add_move_speed)
-        add_move_speed_btn.grid(row=6, column=2)
+        add_move_speed_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_move_speed, width=30)
+        add_move_speed_btn.grid(row=7, column=2, sticky ="w")
 
                     # ------------Extra Move Type /Speed --------------#
         #Extra Movement Type Combobox
         extra_move_type_label = customtkinter.CTkLabel(master=self.frame_left, text="Extra Move Type Option")
-        extra_move_type_label.grid(row=7,column=0)
+        extra_move_type_label.grid(row=8,column=0)
         extra_move_type_options_combobox = ["Random", "Burrow", "Climb", "Fly", "Swim"]
         extra_move_type_options_label = [ "Burrow", "Climb", "Fly", "Swim"]
         extra_move_type_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=extra_move_type_options_combobox)
-        extra_move_type_combobox.grid(row=7, column=1)
+        extra_move_type_combobox.grid(row=8, column=1)
         extra_move_type_combobox.set("Random")
         current_extra_move_type = extra_move_type_combobox.current_value
         #Create list of move speeds
@@ -393,18 +397,19 @@ class App(customtkinter.CTk):
                             "70 ft","80 ft","90 ft",
                             "100 ft","110 ft","120 ft"
                             ]
+
+        extra_move_speed_label = customtkinter.CTkLabel(master=self.frame_left, text="Extra Move Speed Option")
+        extra_move_speed_label.grid(row=9,column=0)
         extra_move_speed_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=extra_move_speed_options_combobox)
-        extra_move_speed_combobox.grid(row=7, column=2)
+        extra_move_speed_combobox.grid(row=9, column=1)
         extra_move_speed_combobox.set("Random")
-        current_extra__move_speed = extra_move_speed_combobox.current_value
-        
 
         #Display Extra Move Speed
         display_extra_move_type = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_extra_move_type.grid(row=7,column=1)
         #Create button to add Move Extra Speed
-        add_extra_move_type_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Extra Movement",command=add_extra_move_type )#
-        add_extra_move_type_btn.grid(row=7, column=3)
+        add_extra_move_type_btn = customtkinter.CTkButton(master=self.frame_left, text="+",command=add_extra_move_type, width=30)
+        add_extra_move_type_btn.grid(row=9, column=2, sticky="w")
 
         
 
@@ -431,9 +436,9 @@ class App(customtkinter.CTk):
 
         #STR Combobox
         str_label = customtkinter.CTkLabel(master=self.frame_left, text="STR Option")
-        str_label.grid(row=9,column=0)
+        str_label.grid(row=10,column=0)
         str_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=stats_options_combobox)
-        str_combobox.grid(row=9, column=1)
+        str_combobox.grid(row=10, column=1)
         str_combobox.set("Random")
         current_str = str_combobox.current_value
         #Add str Value function
@@ -449,14 +454,14 @@ class App(customtkinter.CTk):
         display_str = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_str.grid(row=8,column=1)
         #Create button to add STR Value
-        add_str_btn = customtkinter.CTkButton(master=self.frame_left, text="Add STR Value", command=add_str)
-        add_str_btn.grid(row=9, column=2)
+        add_str_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_str, width=30)
+        add_str_btn.grid(row=10, column=2, sticky="w")
 
         #DEX Combobox
         dex_label = customtkinter.CTkLabel(master=self.frame_left, text="DEX Option")
-        dex_label.grid(row=10,column=0)
+        dex_label.grid(row=11,column=0)
         dex_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=stats_options_combobox)
-        dex_combobox.grid(row=10, column=1)
+        dex_combobox.grid(row=11, column=1)
         dex_combobox.set("Random")
         current_dex = dex_combobox.current_value
         #Add DEX Value function
@@ -472,14 +477,14 @@ class App(customtkinter.CTk):
         display_dex = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_dex.grid(row=9,column=1)
         #Create button to add DEX Value
-        add_dex_btn = customtkinter.CTkButton(master=self.frame_left, text="Add DEX Value", command=add_dex)
-        add_dex_btn.grid(row=10, column=2)
+        add_dex_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_dex, width=30)
+        add_dex_btn.grid(row=11, column=2,sticky="w")
 
         #CON Combobox
         con_label = customtkinter.CTkLabel(master=self.frame_left, text="CON Option")
-        con_label.grid(row=11,column=0)
+        con_label.grid(row=12,column=0)
         con_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=stats_options_combobox)
-        con_combobox.grid(row=11, column=1)
+        con_combobox.grid(row=12, column=1)
         con_combobox.set("Random")
         current_con = con_combobox.current_value
         #Add con Value function
@@ -495,14 +500,14 @@ class App(customtkinter.CTk):
         display_con = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_con.grid(row=10,column=1)
         #Create button to add con Value
-        add_con_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Con Value", command=add_con)
-        add_con_btn.grid(row=11, column=2)
+        add_con_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_con,width=30)
+        add_con_btn.grid(row=12, column=2,sticky="w")
 
         #INT Combobox
         int_label = customtkinter.CTkLabel(master=self.frame_left, text="INT Option")
-        int_label.grid(row=12,column=0)
+        int_label.grid(row=13,column=0)
         int_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=stats_options_combobox)
-        int_combobox.grid(row=12, column=1)
+        int_combobox.grid(row=13, column=1)
         int_combobox.set("Random")
         current_int = int_combobox.current_value
         #Add int Value function
@@ -518,14 +523,14 @@ class App(customtkinter.CTk):
         display_int = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_int.grid(row=11,column=1)
         #Create button to add int Value
-        add_int_btn = customtkinter.CTkButton(master=self.frame_left, text="Add INT Value", command=add_int)
-        add_int_btn.grid(row=12, column=2)
+        add_int_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_int, width=30)
+        add_int_btn.grid(row=13, column=2,sticky="w")
 
         #WIS Combobox
         wis_label = customtkinter.CTkLabel(master=self.frame_left, text="WIS Option")
-        wis_label.grid(row=13,column=0)
+        wis_label.grid(row=14,column=0)
         wis_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=stats_options_combobox)
-        wis_combobox.grid(row=13, column=1)
+        wis_combobox.grid(row=14, column=1)
         wis_combobox.set("Random")
         current_wis = wis_combobox.current_value
         #Add wis Value function
@@ -541,14 +546,14 @@ class App(customtkinter.CTk):
         display_wis = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_wis.grid(row=12,column=1)
         #Create button to add wis Value
-        add_wis_btn = customtkinter.CTkButton(master=self.frame_left, text="Add WIS Value", command=add_wis)
-        add_wis_btn.grid(row=13, column=2)
+        add_wis_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_wis, width=30)
+        add_wis_btn.grid(row=14, column=2, sticky="w")
 
         #CHA Combobox
         cha_label = customtkinter.CTkLabel(master=self.frame_left, text="CHA Option")
-        cha_label.grid(row=14,column=0)
+        cha_label.grid(row=15,column=0)
         cha_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=stats_options_combobox)
-        cha_combobox.grid(row=14, column=1)
+        cha_combobox.grid(row=15, column=1)
         cha_combobox.set("Random")
         current_cha = cha_combobox.current_value
         #Add cha Value function
@@ -564,8 +569,8 @@ class App(customtkinter.CTk):
         display_cha = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_cha.grid(row=13,column=1)
         #Create button to add cha Value
-        add_cha_btn = customtkinter.CTkButton(master=self.frame_left, text="Add CHA Value", command=add_cha)
-        add_cha_btn.grid(row=14, column=2)
+        add_cha_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_cha, width=30)
+        add_cha_btn.grid(row=15, column=2, sticky="w")
 
         #--------- Saving Throws ---------#
         #TODO Create Calculation for Saves based on stats
@@ -573,7 +578,7 @@ class App(customtkinter.CTk):
         # ----------- Skills ------------#
         #Skills combobox
         skills_label = customtkinter.CTkLabel(master=self.frame_left, text="Skills Option")
-        skills_label.grid(row=15,column=0)
+        skills_label.grid(row=16,column=0)
         skills_options_combobox = ["Random","Acrobatics","Animal Handling",
                         "Arcana","Athletics","Deception",
                         "History","Insight","Intimidation",
@@ -591,7 +596,7 @@ class App(customtkinter.CTk):
                         "Survival",
                         ]
         skills_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=skills_options_combobox)
-        skills_combobox.grid(row=15, column=1)
+        skills_combobox.grid(row=16, column=1)
         skills_combobox.set("Random")
         current_skills = skills_combobox.current_value
         #Skills value combobox
@@ -601,8 +606,11 @@ class App(customtkinter.CTk):
         skills_value_options_label = ["+1","+2","+3",
                                     "+4","+5","+6","+7","+8",
                                     "+9","+10"]
+        
+        skills_value_label = customtkinter.CTkLabel(master=self.frame_left, text="Skills Value Option")
+        skills_value_label.grid(row=17,column=0)
         skills_value_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=skills_value_options_combobox)
-        skills_value_combobox.grid(row=15, column=2)
+        skills_value_combobox.grid(row=17, column=1)
         skills_value_combobox.set("Random")
         current_skills_value = skills_value_combobox.current_value
         #Create list of Skills
@@ -642,14 +650,14 @@ class App(customtkinter.CTk):
         display_skills = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_skills.grid(row=15,column=1)
         #Create button to add Skills
-        add_skills_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Skills",command=add_skills)
-        add_skills_btn.grid(row=15, column=3)
+        add_skills_btn = customtkinter.CTkButton(master=self.frame_left, text="+",command=add_skills,width=30)
+        add_skills_btn.grid(row=17, column=2,sticky="w")
 
 
         # ------------- Vulnerabilites ----------#
         #Vulnerabilites combobox
         vuln_label = customtkinter.CTkLabel(master=self.frame_left, text="Vulnerability Option")
-        vuln_label.grid(row=16,column=0)
+        vuln_label.grid(row=18,column=0)
         vuln_options_combobox = ["Random","Acid","Cold","Fire",
                         "Force","Lightning","Necrotic",
                         "Poison","Psychic","Radiant",
@@ -665,7 +673,7 @@ class App(customtkinter.CTk):
                         "Magical Slashing","Magical Piercing",
                         ]
         vuln_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=vuln_options_combobox)
-        vuln_combobox.grid(row=16, column=1)
+        vuln_combobox.grid(row=18, column=1)
         vuln_combobox.set("Random")
         current_vuln = vuln_combobox.current_value
         #Create Vuln list
@@ -689,14 +697,14 @@ class App(customtkinter.CTk):
         display_vuln = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_vuln.grid(row=16,column=1)
         #Create button to add vuln Value
-        add_vuln_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Vulnerability", command=add_vuln)
-        add_vuln_btn.grid(row=16, column=2)
+        add_vuln_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_vuln, width=30)
+        add_vuln_btn.grid(row=18, column=2,sticky="w")
         
 
                             # ------------ Immunities ---------#
         #Immunities combobox
         immune_label = customtkinter.CTkLabel(master=self.frame_left, text="Immunity Option")
-        immune_label.grid(row=17,column=0)
+        immune_label.grid(row=19,column=0)
         immune_options_combobox = ["Random","Acid","Cold","Fire",
                         "Force","Lightning","Necrotic",
                         "Poison","Psychic","Radiant",
@@ -712,7 +720,7 @@ class App(customtkinter.CTk):
                         "Magical Slashing","Magical Piercing",
                         ]
         immune_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=immune_options_combobox)
-        immune_combobox.grid(row=17, column=1)
+        immune_combobox.grid(row=19, column=1)
         immune_combobox.set("Random")
         current_immune = immune_combobox.current_value
         #Add list of immunes
@@ -736,13 +744,13 @@ class App(customtkinter.CTk):
         display_immune = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_immune.grid(row=17,column=1)
         #Create button to add immune Value
-        add_immune_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Immunity", command=add_immune)
-        add_immune_btn.grid(row=17, column=2)
+        add_immune_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_immune, width=30)
+        add_immune_btn.grid(row=19, column=2,sticky="w")
 
         # ---------- Resistances -----------#
         #Resistances combobox
         resist_label = customtkinter.CTkLabel(master=self.frame_left, text="Resistance Option")
-        resist_label.grid(row=18,column=0)
+        resist_label.grid(row=20,column=0)
         resist_options_combobox = ["Random","Acid","Cold","Fire",
                         "Force","Lightning","Necrotic",
                         "Poison","Psychic","Radiant",
@@ -758,12 +766,12 @@ class App(customtkinter.CTk):
                         "Magical Slashing","Magical Piercing",
                         ]
         resist_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=resist_options_combobox)
-        resist_combobox.grid(row=18, column=1)
+        resist_combobox.grid(row=20, column=1)
         resist_combobox.set("Random")
         current_resist = resist_combobox.current_value
         #Resistance Add button
-        resist_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Resistance")
-        resist_add_button.grid(row=18,column=2)
+        resist_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
+        resist_add_button.grid(row=20,column=2,sticky="w")
         #Create resist list
         resist_list = []
         #Add resist Value function
@@ -785,17 +793,17 @@ class App(customtkinter.CTk):
         display_resist = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_resist.grid(row=18,column=1)
         #Create button to add resist
-        add_resist_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Resistance", command=add_resist)
-        add_resist_btn.grid(row=18, column=2)
+        add_resist_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_resist, width=30)
+        add_resist_btn.grid(row=20, column=2,sticky="w")
 
         # -------- Senses ---------#
         #Sense combobox
         senses_label = customtkinter.CTkLabel(master=self.frame_left, text="Senses Option")
-        senses_label.grid(row=19,column=0)
+        senses_label.grid(row=21,column=0)
         senses_options_combobox = ["Random","Darkvision","Blindsight","Truesight","Tremorsense"]
         senses_options_label = ["Random","Darkvision","Blindsight","Truesight","Tremorsense"]
         senses_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=senses_options_combobox)
-        senses_combobox.grid(row=19, column=1)
+        senses_combobox.grid(row=21, column=1)
         senses_combobox.set("Random")
         current_sense = senses_combobox.current_value
         #Sense value combobox
@@ -811,8 +819,11 @@ class App(customtkinter.CTk):
                                 "70 ft","80 ft","90 ft",
                                 "100 ft","110 ft","120 ft"
                                 ]
+
+        sense_value_label = customtkinter.CTkLabel(master=self.frame_left, text="Sense Value Option")
+        sense_value_label.grid(row=22,column=0)
         senses_value_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=senses_value_options_combobox)
-        senses_value_combobox.grid(row=19, column=2)
+        senses_value_combobox.grid(row=22, column=1)
         senses_value_combobox.set("Random")
         current_sense_value = senses_value_combobox.current_value
         #Create list of senses
@@ -852,13 +863,13 @@ class App(customtkinter.CTk):
         display_senses = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_senses.grid(row=19,column=1)
         #Create button to add senses
-        add_senses_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Senses",command=add_senses)
-        add_senses_btn.grid(row=19, column=3)
+        add_senses_btn = customtkinter.CTkButton(master=self.frame_left, text="+",command=add_senses,width=30)
+        add_senses_btn.grid(row=22, column=2, sticky="w")
 
         #---------- Languages ----------#
         #Languages combobox
         lang_label = customtkinter.CTkLabel(master=self.frame_left, text="Languages Option")
-        lang_label.grid(row=20,column=0)
+        lang_label.grid(row=23,column=0)
         lang_options_combobox = ["Random","Common","Dwarvish",
                         "Elvish","Giant","Gnomish",
                         "Goblin","Halfling","Orc",
@@ -874,12 +885,12 @@ class App(customtkinter.CTk):
                         "Sylvan","Undercommon"
                         ]
         lang_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=lang_options_combobox)
-        lang_combobox.grid(row=20, column=1)
+        lang_combobox.grid(row=23, column=1)
         lang_combobox.set("Random")
         current_lang = lang_combobox.current_value
         #Language Add button
-        lang_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Language")
-        lang_add_button.grid(row=20,column=2)
+        # lang_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
+        # lang_add_button.grid(row=23,column=2,sticky="w")
         #Create lang list
         lang_list = []
         #Add lang Value function
@@ -901,61 +912,61 @@ class App(customtkinter.CTk):
         display_lang = customtkinter.CTkLabel(master=self.frame_right, text='')
         display_lang.grid(row=20,column=1)
         #Create button to add lang
-        add_lang_btn = customtkinter.CTkButton(master=self.frame_left, text="Add Language", command=add_lang)
-        add_lang_btn.grid(row=20, column=2)
+        add_lang_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_lang,width=30)
+        add_lang_btn.grid(row=23, column=2,sticky="w")
 
 
         ###TODO
         #Special traits value combobox
         special_traits_label = customtkinter.CTkLabel(master=self.frame_left, text="Special Traits Option")
-        special_traits_label.grid(row=21,column=0)
+        special_traits_label.grid(row=24,column=0)
         special_traits_options = ["Random"]
         special_traits_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=special_traits_options)
-        special_traits_combobox.grid(row=21, column=1)
+        special_traits_combobox.grid(row=24, column=1)
         special_traits_combobox.set("Random")
         current_special_traits = special_traits_combobox.current_value
         #Language Add button
-        special_traits_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Special Trait")
-        special_traits_add_button.grid(row=21,column=2)
+        special_traits_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
+        special_traits_add_button.grid(row=24,column=2,sticky="w")
 
         ###TODO
         #Actions value combobox
         actions_label = customtkinter.CTkLabel(master=self.frame_left, text="Actions Option")
-        actions_label.grid(row=22,column=0)
+        actions_label.grid(row=25,column=0)
         actions_options = ["Random"]
         actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=actions_options)
-        actions_combobox.grid(row=22, column=1)
+        actions_combobox.grid(row=25, column=1)
         actions_combobox.set("Random")
         current_actions = actions_combobox.current_value
         #Actions Add button
-        actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Action")
-        actions_add_button.grid(row=22,column=2)
+        actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
+        actions_add_button.grid(row=25,column=2,sticky="w")
 
         ###TODO
         #Legendary Actions value combobox
         legendary_actions_label = customtkinter.CTkLabel(master=self.frame_left, text="Legendary Actions Option")
-        legendary_actions_label.grid(row=23,column=0)
+        legendary_actions_label.grid(row=26,column=0)
         legendary_actions_options = ["Random"]
         legendary_actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=legendary_actions_options)
-        legendary_actions_combobox.grid(row=23, column=1)
+        legendary_actions_combobox.grid(row=26, column=1)
         legendary_actions_combobox.set("Random")
         current_legendary_actions = legendary_actions_combobox.current_value
         #Legendary Actions Add button
-        legendary_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Legendary Action")
-        legendary_actions_add_button.grid(row=23,column=2)
+        legendary_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
+        legendary_actions_add_button.grid(row=26,column=2,sticky="w")
 
         ###TODO
         #Lair Actions value combobox
         lair_actions_label = customtkinter.CTkLabel(master=self.frame_left, text="Lair Actions Option")
-        lair_actions_label.grid(row=24,column=0)
+        lair_actions_label.grid(row=27,column=0)
         lair_actions_options = ["Random"]
         lair_actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=lair_actions_options)
-        lair_actions_combobox.grid(row=24, column=1)
+        lair_actions_combobox.grid(row=27, column=1)
         lair_actions_combobox.set("Random")
         current_lair_actions = lair_actions_combobox.current_value
         #Lair Actions Add button
-        lair_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="Add Lair Action")
-        lair_actions_add_button.grid(row=24,column=2)
+        lair_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
+        lair_actions_add_button.grid(row=27,column=2, sticky="w")
 
         ###TODO
         #Spells value combobox
