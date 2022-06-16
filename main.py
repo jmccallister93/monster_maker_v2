@@ -10,9 +10,20 @@ import random
 from spells import *
 
 
-#TODO Create calculations statement for Saves based on stats
-#TODO Create healthpool options
-#TODO Fix error messages to show any value in label already exists
+#TODO List:
+# 1. ORGANIZE 
+# 2. Figure out add health value button based on health pool 
+# 3. Figure out Special Traits/Actions/Spells/Legendary/Lair Buttons and how to make them work
+#    - Probably best to pop these into new windows 
+# 4. Create a remove function to remove a stat
+# 5. Create a save option to save stats to file
+# 6. Fix Error Popup window when on "Random" to register the value as already added
+# 7. Create command for the Generate Mosnter button to encompass and "Add" Buttons
+# 8. Get Data for Actions/Legendary/Lair
+# 9. Format Spells data to link to dndbeyond.com for descriptions (possilby?) 
+# 10. Calculate Save bonuses based on stats given
+# 11. Legendary Resistances, where to put them?
+
 
 #Set starting apperances
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
@@ -323,7 +334,7 @@ class App(customtkinter.CTk):
         move_speed_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=move_speed_options_combobox)
         move_speed_combobox.grid(row=7, column=1)
         move_speed_combobox.set("Random")
-        current_move_speed = move_speed_combobox.current_value
+        
         #Add Move Speed function
         def add_move_speed():
             move_speed_choice = StringVar()
@@ -335,7 +346,7 @@ class App(customtkinter.CTk):
                 display_move_speed['text'] = move_speed_choice
         #Display Move Speed
         display_move_speed = customtkinter.CTkLabel(master=self.frame_right, text='')
-        display_move_speed.grid(row=7,column=1)
+        display_move_speed.grid(row=6,column=1)
         
         #Create button to add Move Speed
         add_move_speed_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_move_speed, width=30)
@@ -937,36 +948,96 @@ class App(customtkinter.CTk):
         actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=actions_options)
         actions_combobox.grid(row=25, column=1)
         actions_combobox.set("Random")
-        current_actions = actions_combobox.current_value
-        #Actions Add button
-        actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
-        actions_add_button.grid(row=25,column=2,sticky="w")
+        
 
         ###TODO
+        #Legendary Actions Options ~Temporary
+        legendary_action_options_combobox = ["Random", "Difficult Terrain", "Obscure Sight",
+                                            "Snaring", "Knockdown", "Lighting Change", 
+                                            "Heal Dampening", "Spell Dampening", "Effect on Enter",
+                                            "Effect on Exit", "Free Action", "Free Reaction",
+                                            "Free Spell", "Free Ability"]
+        legendary_action_options_label = ["Difficult Terrain", "Obscure Sight",
+                                            "Snaring", "Knockdown", "Lighting Change", 
+                                            "Heal Dampening", "Spell Dampening", "Effect on Enter",
+                                            "Effect on Exit", "Free Action", "Free Reaction",
+                                            "Free Spell", "Free Ability"]
+         #Create legendary_action list
+        legendary_action_list = []
+        #Add legendary_action Value function
+        def add_legendary_action():
+            legendary_action_choice = StringVar()
+            legendary_action_choice = legendary_action_combobox.get()
+            random_legendary_action = random.choice(legendary_action_options_label)
+            if legendary_action_choice in legendary_action_list:
+                tkinter.messagebox.showinfo('Error', f'{legendary_action_choice} Legendary Action already added.')
+            else:
+                if legendary_action_choice == "Random":
+                    legendary_action_list.append(random_legendary_action)
+                    display_legendary_action['text'] = ' | '.join(legendary_action_list)
+                else:
+                    legendary_action_list.append(legendary_action_choice)
+                    display_legendary_action['text'] = ' | '.join(legendary_action_list)
+            
+                
+        #Display legendary_action
+        display_legendary_action = customtkinter.CTkLabel(master=self.frame_right, text='')
+        display_legendary_action.grid(row=23,column=1)
+        #Create button to add legendary_action
+        add_legendary_action_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_legendary_action, width=30)
+        add_legendary_action_btn.grid(row=26, column=2,sticky="w")
         #Legendary Actions value combobox
-        legendary_actions_label = customtkinter.CTkLabel(master=self.frame_left, text="Legendary Actions Option")
-        legendary_actions_label.grid(row=26,column=0)
-        legendary_actions_options = ["Random"]
-        legendary_actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=legendary_actions_options)
-        legendary_actions_combobox.grid(row=26, column=1)
-        legendary_actions_combobox.set("Random")
-        current_legendary_actions = legendary_actions_combobox.current_value
-        #Legendary Actions Add button
-        legendary_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
-        legendary_actions_add_button.grid(row=26,column=2,sticky="w")
-
+        legendary_action_label = customtkinter.CTkLabel(master=self.frame_left, text="Legendary Actions Option")
+        legendary_action_label.grid(row=26,column=0)
+        
+        legendary_action_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=legendary_action_options_combobox)
+        legendary_action_combobox.grid(row=26, column=1)
+        legendary_action_combobox.set("Random")
+    
         ###TODO
+        #Lair Actions Options ~Temporary
+        lair_action_options_combobox = ["Random", "Difficult Terrain", "Obscure Sight",
+                                            "Snaring", "Knockdown", "Lighting Change", 
+                                            "Heal Dampening", "Spell Dampening", "Effect on Enter",
+                                            "Effect on Exit", "Free Action", "Free Reaction",
+                                            "Free Spell", "Free Ability"]
+        lair_action_options_label = ["Difficult Terrain", "Obscure Sight",
+                                            "Snaring", "Knockdown", "Lighting Change", 
+                                            "Heal Dampening", "Spell Dampening", "Effect on Enter",
+                                            "Effect on Exit", "Free Action", "Free Reaction",
+                                            "Free Spell", "Free Ability"]
+        #Create Lair Action list
+        lair_action_list = []
+        #Add Lair Action Value function
+        def add_lair_action():
+            lair_action_choice = StringVar()
+            lair_action_choice = lair_action_combobox.get()
+            random_lair_action = random.choice(lair_action_options_label)
+            if lair_action_choice in lair_action_list:
+                tkinter.messagebox.showinfo('Error', f'{lair_action_choice} lair Action already added.')
+            else:
+                if lair_action_choice == "Random":
+                    lair_action_list.append(random_lair_action)
+                    display_lair_action['text'] = ' | '.join(lair_action_list)
+                else:
+                    lair_action_list.append(lair_action_choice)
+                    display_lair_action['text'] = ' | '.join(lair_action_list)
+            
+                
+        #Display Lair Action
+        display_lair_action = customtkinter.CTkLabel(master=self.frame_right, text='')
+        display_lair_action.grid(row=24,column=1)
+        #Create button to add Lair Action
+        add_lair_action_btn = customtkinter.CTkButton(master=self.frame_left, text="+", command=add_lair_action, width=30)
+        add_lair_action_btn.grid(row=27, column=2,sticky="w")
         #Lair Actions value combobox
-        lair_actions_label = customtkinter.CTkLabel(master=self.frame_left, text="Lair Actions Option")
-        lair_actions_label.grid(row=27,column=0)
-        lair_actions_options = ["Random"]
-        lair_actions_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=lair_actions_options)
-        lair_actions_combobox.grid(row=27, column=1)
-        lair_actions_combobox.set("Random")
-        current_lair_actions = lair_actions_combobox.current_value
-        #Lair Actions Add button
-        lair_actions_add_button = customtkinter.CTkButton(master=self.frame_left, text="+", width=30)
-        lair_actions_add_button.grid(row=27,column=2, sticky="w")
+        lair_action_label = customtkinter.CTkLabel(master=self.frame_left, text="Lair Actions Option")
+        lair_action_label.grid(row=27,column=0)
+        
+        lair_action_combobox = customtkinter.CTkComboBox(master=self.frame_left, values=lair_action_options_combobox)
+        lair_action_combobox.grid(row=27, column=1)
+        lair_action_combobox.set("Random")
+        
 
         ###TODO
         #Spells value combobox
@@ -1100,24 +1171,24 @@ class App(customtkinter.CTk):
 
         #TODO
         #------Remove Button------#
-        def remove_stat():
-            #Create Window
-            remove_stat_window = customtkinter.CTkToplevel(master)
+        # def remove_stat():
+        #     #Create Window
+        #     remove_stat_window = customtkinter.CTkToplevel(master)
         
-            # sets the title of the
-            # Toplevel widget
-            remove_stat_window.title("Remove Stat")
+        #     # sets the title of the
+        #     # Toplevel widget
+        #     remove_stat_window.title("Remove Stat")
         
-            # sets the geometry of toplevel
-            remove_stat_window.geometry("400x400")
+        #     # sets the geometry of toplevel
+        #     remove_stat_window.geometry("400x400")
         
-            # A Label widget to show in toplevel
-            customtkinter.CTkLabel(remove_stat_window, text="Choose Stat to Clear")
-            customtkinter.CTkComboBox(remove_stat_window,
-                text ="Choose Stat to Clear").pack()
+        #     # A Label widget to show in toplevel
+        #     customtkinter.CTkLabel(remove_stat_window, text="Choose Stat to Clear")
+        #     customtkinter.CTkComboBox(remove_stat_window,
+        #         text ="Choose Stat to Clear").pack()
 
-        remove_btn = customtkinter.CTkButton(master=self.frame_left, text="Remove Stat?", command=remove_stat)
-        remove_btn.grid(row=28,column=0, columnspan=4)
+        # remove_btn = customtkinter.CTkButton(master=self.frame_left, text="Remove Stat?", command=remove_stat)
+        # remove_btn.grid(row=28,column=0, columnspan=4)
 
         #TODO
         #------------Save Monster------------#
